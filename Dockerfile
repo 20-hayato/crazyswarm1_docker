@@ -24,11 +24,12 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 # Pythonパッケージのインストール
 RUN python3 -m pip install --no-cache-dir \
     pytest \
-    numpy \
+    "numpy>=1.20" \
     PyYAML \
     scipy \
     vispy \
-    ffmpeg-python
+    ffmpeg-python \
+    matplotlib
 
 # bootstrap rosdep
 RUN rosdep init && \
