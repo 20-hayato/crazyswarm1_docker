@@ -1,0 +1,20 @@
+services:
+  ros1_noetic:
+    container_name: ros1_noetic
+    build:
+      context: .
+      dockerfile: Dockerfile  # 必要に応じてDockerfile名変更可
+    runtime: nvidia
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=/tmp/.docker.xauth
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /tmp/.docker.xauth:/tmp/.docker.xauth
+      - ~/crazyswarm_workspace/crazyswarm_:/root/crazyswarm_
+    stdin_open: true
+    tty: true
+    network_mode: host  # GUI用（X11）に必要な場合が多い
