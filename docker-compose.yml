@@ -15,6 +15,10 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - /tmp/.docker.xauth:/tmp/.docker.xauth
       - ~/crazyswarm_workspace/crazyswarm_:/root/crazyswarm_
+      - ~/crazyswarm_workspace/crazyradio-firmware:/root/crazyradio-firmware
+    devices:
+      - /dev/bus/usb:/dev/bus/usb
+    privileged: true
     stdin_open: true
     tty: true
     network_mode: host  # GUI用（X11）に必要な場合が多い

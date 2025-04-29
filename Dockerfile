@@ -19,17 +19,27 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     ffmpeg \
     libgl1-mesa-glx \
     libgl1-mesa-dri \
+    libxcb-xinerama0 \
+    libxcb-cursor0 \
+    sdcc \
+    binutils \
+    usbutils \
+    python3-tk \
     && rm -rf /var/lib/apt/lists/*
 
+RUN pip3 install --upgrade pip
+
 # Pythonパッケージのインストール
-RUN python3 -m pip install --no-cache-dir \
+RUN python3 -m pip install --no-cache-dir --ignore-installed \
     pytest \
     "numpy>=1.20" \
-    PyYAML \
+    "PyYAML==5.4.1" \
     scipy \
     vispy \
     ffmpeg-python \
-    matplotlib
+    matplotlib \
+    cfclient \
+    pyusb
 
 # bootstrap rosdep
 RUN rosdep init && \
