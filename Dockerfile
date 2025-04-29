@@ -2,6 +2,8 @@ FROM ros:noetic-ros-core-focal
 
 # install bootstrap tools
 RUN apt-get update && apt-get install --no-install-recommends -y \
+    vim \
+    nano \
     build-essential \
     python3-pip \
     python3-rosdep \
@@ -25,12 +27,14 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     binutils \
     usbutils \
     python3-tk \
+    gcc-arm-none-eabi \
+    libnewlib-arm-none-eabi \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip3 install --upgrade pip
 
 # Pythonパッケージのインストール
-RUN python3 -m pip install --no-cache-dir --ignore-installed \
+RUN python3 -m pip install --no-cache-dir --ignore-installed\
     pytest \
     "numpy>=1.20" \
     "PyYAML==5.4.1" \
@@ -38,8 +42,8 @@ RUN python3 -m pip install --no-cache-dir --ignore-installed \
     vispy \
     ffmpeg-python \
     matplotlib \
-    cfclient \
-    pyusb
+    pyusb \
+    pyserial
 
 # bootstrap rosdep
 RUN rosdep init && \
@@ -67,3 +71,11 @@ RUN echo "source /root/crazyswarm_/ros_ws/devel/setup.bash" >> .bashrc
 RUN git config --global user.name "Kawashima Lab" && \
     git config --global user.email "hayato.kawashima1023@gmail.com" && \
     git config --global --add safe.directory '*'
+
+RUN apt-get remove -y python3-pyqt5
+RUN pip3 install --force-reinstall --no-deps PyQt5==5.15.9
+
+RUN git clone https://github.com/bitcraze/crazyflie-clients-python.git && \
+    cd crazyflie-clients-python && \
+    git checkout tags/2024.2 -b my-version && \
+    pip3 install -e .
