@@ -67,6 +67,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     ros-noetic-rqt-plot \
     ros-noetic-rqt-graph \
     ros-noetic-rqt-common-plugins \
+    ros-noetic-tf \
+    ros-noetic-tf-conversions \
+    ros-noetic-joy \
     && rm -rf /var/lib/apt/lists/*
 
 # --- NVIDIA関連の設定 ---
