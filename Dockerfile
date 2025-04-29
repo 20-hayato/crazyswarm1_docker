@@ -37,8 +37,10 @@ RUN python3 -m pip install --no-cache-dir --ignore-installed \
     vispy \
     ffmpeg-python \
     matplotlib \
+    pandas \
+    seaborn \
     pyusb \
-    pyserial
+    pyserial 
 
 # --- PyQt5 の調整 ---
 # RUN dpkg -s python3-pyqt5 >/dev/null 2>&1 && apt-get remove -y python3-pyqt5 || true
